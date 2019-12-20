@@ -7,10 +7,10 @@
 #include <common.h>
 #include <command.h>
 
-unsigned long do_go_exec(ulong (*entry)(int, char * const []),
-			 int argc, char * const argv[])
+unsigned long do_go_exec(ulong (*entry)(ulong, ulong),
+			 ulong hardid, ulong fdtaddr)
 {
-	cleanup_before_linux();
+//	cleanup_before_linux();
 
-	return entry(argc, argv);
+	return entry(hardid, fdtaddr);
 }

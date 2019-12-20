@@ -137,8 +137,8 @@ extern int common_diskboot(cmd_tbl_t *cmdtp, const char *intf, int argc,
 extern int do_reset(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[]);
 extern int do_poweroff(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[]);
 
-extern unsigned long do_go_exec(ulong (*entry)(int, char * const []), int argc,
-				char * const argv[]);
+extern unsigned long do_go_exec(ulong (*entry)(ulong, ulong), ulong hardid,
+				ulong fdtaddr);
 
 #if defined(CONFIG_CMD_NVEDIT_EFI)
 extern int do_env_print_efi(cmd_tbl_t *cmdtp, int flag, int argc,

@@ -35,6 +35,9 @@
 .section .text
 .globl _start
 _start:
+	mv      a0, zero
+	mv	a1, zero
+
 	/* save hart id and dtb pointer */
 	mv	s0, a0
 	mv	s1, a1
@@ -46,8 +49,9 @@ _start:
 	csrw	MODE_PREFIX(ie), zero
 
 	/* Enable cache */
-	jal	icache_enable
-	jal	dcache_enable
+        /* wh core did not support i/d cache operation
+	//jal	icache_enable
+	//jal	dcache_enable
 
 /*
  * Set stackpointer in internal/ex RAM to call board_init_f

@@ -1,0 +1,87 @@
+/dts-v1/;
+
+/ {
+	#address-cells = <1>;
+	#size-cells = <1>;
+	compatible = "uctechip,wh";
+	model = "uctechip,wh";
+
+	aliases {
+		uart0 = &serial0;
+	};
+
+	chosen {
+		bootargs = "console=ttyWH0,115200n8  debug loglevel=7 vmalloc=10M";
+		stdout-path = "uart0:115200n8";
+	};
+
+	cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		timebase-frequency = <1500000>;
+		CPU0: cpu@0 {
+			device_type = "cpu";
+			reg = <0>;
+			status = "okay";
+			compatible = "riscv";
+			riscv,isa = "rv32imafc";
+			mmu-type = "riscv,sv32";
+			clock-frequency = <48000000>;
+			d-cache-size = <0x8000>;
+			d-cache-line-size = <32>;
+			CPU0_intc: interrupt-controller {
+				#interrupt-cells = <1>;
+				interrupt-controller;
+				compatible = "riscv,cpu-intc";
+			};
+		};
+	};
+
+	memory@400000000 {
+		device_type = "memory";
+		reg = <0x40000000 0x10000000>;
+	};
+
+	soc {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "uctechip,riscv-wh-soc";
+		ranges;
+    };
+	
+	plic0: interrupt-controller@3c000000 {
+		compatible = "riscv,plic0";
+		#address-cells = <1>;
+		#interrupt-cells = <1>;
+		interrupt-controller;
+		reg = <0x3c000000 0x4000000>;
+		riscv,max-priority = <7>;
+		riscv,ndev=<15>;
+		interrupts-extended = <&CPU0_intc 9 &CPU0_intc 11>;
+	};
+
+	clint0: interrupt-controller@32000000 {
+		compatible = "riscv,clint0";
+		#address-cells = <1>;
+		#interrupt-cells = <1>;
+		interrupt-controller;
+		reg = <0x32000000 0x10000>;
+	};
+	
+	timer0: timer@10000080 {
+        compatible = "wh,timer";
+      	reg = <0x10000080 0x1f>;
+      	clock-frequency = <48000000>;
+        interrupts = <3>;
+       	interrupt-parent = <&plic0>;
+    };
+
+   
+	serial0: serial@10000010 {
+		compatible = "wh,uart0";
+		reg = <0x10000010 0x7>;
+		interrupts = <1 1>;
+		clock-frequency = <1843200>;
+		interrupt-parent = <&plic0>;
+	};
+};

@@ -1,0 +1,5 @@
+WH-LSEXTEND BOARD
+
+F:	board/uctechip/wh-lsextend/
+F:	include/configs/wh-lsextend.h
+F:	configs/wh-lsextend_defconfig

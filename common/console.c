@@ -403,7 +403,7 @@ int getc(void)
 #endif
 	if (gd->flags & GD_FLG_DEVINIT) {
 		/* Get from the standard input */
-		return fgetc(stdin);
+		//return fgetc(stdin);
 	}
 
 	/* Send directly to the handler */

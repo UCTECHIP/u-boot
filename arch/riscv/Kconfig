@@ -11,6 +11,9 @@ choice
 config TARGET_AX25_AE350
 	bool "Support ax25-ae350"
 
+config TARGET_WH_LSEXTEND
+	bool "Support wh-lsextend"
+
 config TARGET_QEMU_VIRT
 	bool "Support QEMU Virt Board"
 
@@ -21,11 +24,13 @@ endchoice
 
 # board-specific options below
 source "board/AndesTech/ax25-ae350/Kconfig"
+source "board/uctechip/wh-lsextend/Kconfig"
 source "board/emulation/qemu-riscv/Kconfig"
 source "board/sifive/fu540/Kconfig"
 
 # platform-specific options below
 source "arch/riscv/cpu/ax25/Kconfig"
+source "arch/riscv/cpu/wh/Kconfig"
 source "arch/riscv/cpu/generic/Kconfig"
 
 # architecture-specific options below

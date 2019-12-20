@@ -1,0 +1,18 @@
+if TARGET_WH_LSEXTEND
+
+config SYS_CPU
+	default "wh"
+
+config SYS_BOARD
+	default "wh-lsextend"
+
+config SYS_VENDOR
+	default "uctechip"
+
+config SYS_SOC
+	default "lsextend"
+
+config SYS_CONFIG_NAME
+	default "wh-lsextend"
+
+endif

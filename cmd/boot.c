@@ -15,29 +15,32 @@
 
 /* Allow ports to override the default behavior */
 __attribute__((weak))
-unsigned long do_go_exec(ulong (*entry)(int, char * const []), int argc,
-				 char * const argv[])
+unsigned long do_go_exec(ulong (*entry)(ulong, ulong), ulong hardid,
+				 ulong fdtaddr)
 {
-	return entry (argc, argv);
+	return entry (hardid, fdtaddr);
 }
 
 static int do_go(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 {
 	ulong	addr, rc;
+	ulong   hardid, fdtaddr;
 	int     rcode = 0;
 
 	if (argc < 2)
 		return CMD_RET_USAGE;
 
 	addr = simple_strtoul(argv[1], NULL, 16);
+        hardid = simple_strtoul(argv[2], NULL, 16);
+	fdtaddr = simple_strtoul(argv[3], NULL, 16);
 
-	printf ("## Starting application at 0x%08lX ...\n", addr);
+	printf ("## Starting application at 0x%08lX, hardid:0x%08lX, fdtaddr:0x%08lX ...\n", addr, hardid, fdtaddr);
 
 	/*
 	 * pass address parameter as argv[0] (aka command name),
 	 * and all remaining args
 	 */
-	rc = do_go_exec ((void *)addr, argc - 1, argv + 1);
+	rc = do_go_exec ((void *)addr, hardid, fdtaddr);
 	if (rc != 0) rcode = 1;
 
 	printf ("## Application terminated, rc = 0x%lX\n", rc);
