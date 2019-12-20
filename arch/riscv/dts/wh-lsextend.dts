@@ -84,4 +84,17 @@
 		clock-frequency = <1843200>;
 		interrupt-parent = <&plic0>;
 	};
+
+	sdhci_0: sdhci@10004000 {
+                compatible = "uctechip,wh-mmc";
+                reg = <0x10004000 0x400>;
+                interrupts = <11 11>;
+                interrupt-parent = <&plic0>;
+                clock-frequency = <50000000>;
+                max-frequency = <100000000>;
+                clock-freq-min-max = <400000 100000000>;
+                data-buffer-phyaddr = <0x4b000000>;
+		cap-sd-highspeed;
+        };
+
 };

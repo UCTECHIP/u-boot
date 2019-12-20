@@ -340,6 +340,11 @@ config JZ47XX_MMC
 	help
 	  This selects support for the SD Card Controller on Ingenic JZ47xx SoCs.
 
+config WH_MMC
+        bool "WH SD/MMC Host Controller support"
+        help
+          This selects support for the SD Card Controller on WH.
+
 config MMC_SANDBOX
 	bool "Sandbox MMC support"
 	depends on SANDBOX
