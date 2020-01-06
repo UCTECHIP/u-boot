@@ -206,6 +206,11 @@ static int _wh_mmc_send_cmd(struct mmc *mmc, struct wh_mmc_priv *priv,
 {
 	u32 cmdat = 0;
 
+	if ( cmd->cmdidx == 16 )
+        {
+                return 0;
+        }
+
 	/* send command */
 	switch (cmd->resp_type) {
 	case MMC_RSP_NONE:
